@@ -27,15 +27,20 @@ function displayNotes() {
 
             let h5 = document.createElement("h5");
             h5.className = "card-title";
-            h5.innerText = element[0];
+            h5.innerText = element["Title"];
 
             divInner.appendChild(h5);
 
             let p = document.createElement("p");
             p.className = "card-text";
-            p.innerText = element[1];
+            p.innerText = element["Text"];
 
             divInner.appendChild(p);
+
+            let span = document.createElement('span');
+            span.innerText = element["Date"];
+
+            divInner.appendChild(span);
 
             let button = document.createElement("button");
             button.id = `${index}`;
@@ -69,7 +74,14 @@ function addNotes() {
     } else {
         notes = JSON.parse(notes);
     }
-    notes.push([title.value, text.value]);
+
+    notesObj = {
+        "Title" : title.value,
+        "Text" : text.value,
+        "Date" : new Date().toString().substring(0, 25)
+    } 
+
+    notes.push(notesObj);
     localStorage.setItem("notes", JSON.stringify(notes));
     title.value = "";
     text.value = "";
